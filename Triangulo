@@ -1,0 +1,97 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.trabalho.Classes;
+
+import javax.sound.midi.SoundbankResource;
+
+/**
+ *
+ * @author kfrural
+ */
+public class Triangulo {
+    private Ponto[] pontos = new Ponto[3];
+    
+    public Triangulo(){
+        for(int i = 0; i < 3; i++){
+            this.pontos[i] = new Ponto();
+        }
+    }
+    
+    public void copy(Ponto outra){
+        for(int i = 0; i < 3; i ++){
+            Ponto p = outra.getPontos()[i];
+            this.pontos[i].copy(p);
+        }
+    }
+
+    public void fill(){
+        System.out.println("Preencha os trem ai\n\n");
+        for(int i = 0; i < 3; i++){
+            this.getPontos()[i].fill();
+        }
+    }
+    
+    public void imprimir(){
+        System.out.println("A impressao dos trem\n\n");
+        for(Ponto p : this.getPontos()){
+            p.imprimir();
+        }
+    }
+    public double distancia(Ponto p1, Ponto p2){
+        return Math.sqrt(Math.pow(p2.getX() - p1.getX(), 2) + Math.pow(p2.getY() - p1.getY(), 2));
+    }
+    
+    public void isColinear(Ponto p1, Ponto p2, Ponto p3){
+        double a = p1.getX() * (p2.getY() - p3.getY()) + p2.getX() * (p3.getY() - p1.getY()) + p3.getX() *(p1.getY() - p2.getY());
+        if(a == 0){
+            System.out.println("Sim");
+        }else{
+            System.out.println("Nao");
+        }
+    }
+     public double calcularArea() {
+
+    double maiorX = Math.max(Math.max(pontos[0].getX(), pontos[1].getX()), pontos[2].getX());
+    double menorX = Math.min(Math.min(pontos[0].getX(), pontos[1].getX()), pontos[2].getX());
+    double base = maiorX - menorX;
+
+    double maiorY = Math.max(Math.max(pontos[0].getY(), pontos[1].getY()), pontos[2].getY());
+    double menorY = Math.min(Math.min(pontos[0].getY(), pontos[1].getY()), pontos[2].getY());
+    double altura = maiorY - menorY;
+
+    return (base * altura) / 2;
+    }
+     public void calcularPerimetro(){
+         double soma;
+         soma = distancia(pontos[0], pontos[1]);
+         soma+= distancia(pontos[1], pontos[2]);
+         soma+= distancia(pontos[2], pontos[0]);
+         System.out.println("A soma é:" + soma);
+     }
+     public void tipo(){
+         double lado1 = distancia(pontos[0], pontos[1]);
+         double lado2 = distancia(pontos[1], pontos[2]);
+         double lado3 = distancia(pontos[2], pontos[0]);
+         if(lado1 == lado2 && lado2 == lado3){
+             System.out.println("É EQUILATERO");
+         }else if(lado1 == lado2 || lado1 == lado3 || lado2 == lado3){
+             System.out.println("É ISÓCELES");
+         }else{
+             System.out.println("É ESCALENO");
+         }
+     }
+     
+    
+    public Ponto[] getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(Ponto[] pontos) {
+        this.pontos = pontos;
+    }
+    
+    
+    
+}
